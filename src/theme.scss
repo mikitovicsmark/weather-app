@@ -1,9 +1,15 @@
 @import '~@angular/material/theming';
 @include mat-core();
 
+$primary-color: #3F51B5;
+
 $custom-primary: mat-palette($mat-indigo);
 $custom-accent:  mat-palette($mat-blue);
 
 $custom-theme: mat-light-theme($custom-primary, $custom-accent);
 
 @include angular-material-theme($custom-theme);
+
+body {
+  color: $primary-color;
+}

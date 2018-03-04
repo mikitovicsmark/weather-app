@@ -1,6 +1,17 @@
-<div>
-  Hello
-  {{cityData | json}}
-  <wa-temperature-slider></wa-temperature-slider>
+<div class="page-container">
+  <div *ngIf="!cityData.weather" class="spinner">
+    <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+  </div>
+  <div *ngIf="cityData.weather">
+    <div class="weather-info">
+      <img [src]="iconSrc" class="weather-icon">
+      <div class="weather-text">
+          {{ niceWeather ? 'The weather is nice today. 😎' : 'The weather is not nice today. 😑'}}
+          <p></p>
+      </div>
+    </div>
+    <div class="sliders">
+      <wa-slider *ngFor="let filter of filters" [filterData]="filter"></wa-slider>
+    </div>
+  </div>
 </div>
-

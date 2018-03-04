@@ -1,0 +1,7 @@
+<div class="slider-container">
+  <div class="slider-title">{{ filterData.label }}</div>
+  <mat-slider class="slider" thumbLabel min="{{filterData.min}}" max="{{filterData.max}}" step="1" value="20"></mat-slider>
+  <mat-form-field class="slider-tolerance">
+    <input type="number" min="0" matInput placeholder="Tolerance" value="{{filterData.tolerance}}">
+  </mat-form-field>
+</div>

@@ -11,4 +11,8 @@ export class WeatherApiService {
   getCityData(cityName: string) {
     return this.http.get(`${this.baseApi}q=${cityName}&APPID=${environment.weather_api_key}`);
   }
+
+  getCityDataByCoordinates({ lat, lon }: { lat: number, lon: number }) {
+    return this.http.get(`${this.baseApi}lat=${lat}&lon=${lon}&APPID=${environment.weather_api_key}`);
+  }
 }
