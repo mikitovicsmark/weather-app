@@ -1,16 +1,17 @@
-import { Component, OnInit, NgModule, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { WeatherCheckerService } from '../weather-checker.service';
 
 @Component({
   selector: 'wa-slider',
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.scss']
 })
-export class SliderComponent implements OnInit {
+export class SliderComponent {
   @Input() filterData: Object;
-  constructor() { }
+  constructor(private checkerService: WeatherCheckerService) { }
 
-  ngOnInit() {
-    console.log(this.filterData);
+  valueChange(label, value) {
+    this.checkerService.setFilterValue(label, value);
   }
 
 }

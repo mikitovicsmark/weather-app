@@ -1,6 +1,8 @@
-<div class="slider-container">
-  <div class="slider-title">{{ filterData.label }}</div>
-  <mat-slider class="slider" thumbLabel min="{{filterData.min}}" max="{{filterData.max}}" step="1" value="20"></mat-slider>
+<div class="slider-container" *ngIf="filterData.checked">
+  <div class="slider-title">{{ filterData.label }}: {{filterData.value}}{{filterData.format}}</div>
+  <mat-slider class="slider" thumbLabel min="{{filterData.min}}" max="{{filterData.max}}" step="1"
+    [(ngModel)]="filterData.value" (change)="valueChange(filterData.label, filterData.value)">
+  </mat-slider>
   <mat-form-field class="slider-tolerance">
     <input type="number" min="0" matInput placeholder="Tolerance" value="{{filterData.tolerance}}">
   </mat-form-field>

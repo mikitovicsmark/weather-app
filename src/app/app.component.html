@@ -11,6 +11,7 @@
       </div>
     </div>
     <div class="sliders">
+      <wa-slider-filter [filters]="filters"></wa-slider-filter>
       <wa-slider *ngFor="let filter of filters" [filterData]="filter"></wa-slider>
     </div>
   </div>

@@ -1,0 +1,13 @@
+.toggle {
+  flex: 1;
+  &-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin: 16px 24px;
+    width: 180px;
+    height: 140px;
+    border: 1px solid #3F51B5;
+    padding: 10px;
+  }
+}
