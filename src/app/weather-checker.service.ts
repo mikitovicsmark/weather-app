@@ -13,7 +13,6 @@ export class WeatherCheckerService {
   private isNiceWeather: Subject<boolean> = new Subject();
   constructor(private apiService: WeatherApiService) {
     this.filterData = [
-      // - 272
       {
         label: 'Temperature',
         path: 'main.temp',
@@ -23,7 +22,7 @@ export class WeatherCheckerService {
         max: 40,
         tolerance: 5,
         checked: false,
-        converter: x => x,
+        converter: x => x - 272,
       },
       {
         label: 'Humidity',
@@ -60,9 +59,9 @@ export class WeatherCheckerService {
 
   checkWeather() {
     const filterResult = this.filterData.some(filter => {
-      const cityParameter = filter.converter(_.get(this.cityData, filter.path));
+      const cityParameter = filter.converter(_.get(this.cityData, filter.path)) || 0;
       if (
-        filter.checked && cityParameter &&
+        filter.checked &&
         (cityParameter > filter.value + filter.tolerance || cityParameter < filter.value - filter.tolerance)
       ) {
         return true;
