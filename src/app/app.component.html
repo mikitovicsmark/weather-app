@@ -10,6 +10,13 @@
           <p></p>
       </div>
     </div>
+  </div>
+  <div class="location-input">
+    <mat-form-field>
+      <input type="text" matInput (change)="locationChange()" [(ngModel)]="cityLocation" placeholder="Location">
+    </mat-form-field>
+  </div>
+  <div *ngIf="cityData.weather">
     <div class="sliders">
       <wa-slider-filter [filters]="filters"></wa-slider-filter>
       <wa-slider *ngFor="let filter of filters" [filterData]="filter"></wa-slider>
