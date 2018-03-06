@@ -1,20 +1,25 @@
 <div class="page-container">
-  <div *ngIf="!cityData.weather" class="spinner">
-    <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
-  </div>
   <div *ngIf="cityData.weather">
     <div class="weather-info">
       <img [src]="iconSrc" class="weather-icon">
       <div class="weather-text">
-          {{ niceWeather ? 'The weather is nice today. 😎' : 'The weather is not nice today. 😑'}}
-          <p></p>
+        <div class="weather-text-row">
+          {{ niceWeather ? 'The weather is nice today.' : 'The weather is not nice today.'}}
+        </div>
+        <div class="weather-text-row">
+            {{ niceWeather ? '😎' : '😑'}}
+        </div>
       </div>
     </div>
   </div>
   <div class="location-input">
     <mat-form-field>
-      <input type="text" matInput (change)="locationChange()" [(ngModel)]="cityLocation" placeholder="Location">
+      <input type="text" matInput (change)="locationChange()" [(ngModel)]="cityLocation" placeholder="Enter location">
     </mat-form-field>
+    <button mat-raised-button color="primary" (click)="getLocation()" class="geo-button">Load geolocation</button>
+    <div [ngStyle]="{'visibility': loading ? 'visible' : 'hidden'}">
+      <mat-progress-spinner color="primary" mode="indeterminate" [diameter]="35"></mat-progress-spinner>
+    </div>
   </div>
   <div *ngIf="cityData.weather">
     <div class="sliders">

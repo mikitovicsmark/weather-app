@@ -15,7 +15,8 @@ export class AppComponent {
   private cityData: Object = {};
   private iconSrc = '';
   private filters: FilterData[];
-  private niceWeather = true;
+  private loading = false;
+  private niceWeather: boolean;
   private cityLocation = '';
   private cityLocationSubject: Subject<string> = new Subject();
   private apiSubscription: Subscription;
@@ -52,5 +53,25 @@ export class AppComponent {
   locationChange() {
     this.localStorage.setItem('waLocation', this.cityLocation);
     this.cityLocationSubject.next(this.cityLocation);
+  }
+
+  getLocation() {
+    this.loading = true;
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(pos => {
+        this.apiSubscription = this.apiService
+          .getCityDataByCoordinates({ lat: pos.coords.latitude, lon: pos.coords.longitude })
+          .subscribe(data => {
+            this.iconSrc = `http://openweathermap.org/img/w/${data['weather'][0].icon}.png`;
+            this.cityData = data;
+            this.cityLocation = data['name'];
+            this.localStorage.setItem('waLocation', this.cityLocation);
+            this.loading = false;
+            this.checkerService.checkWeather();
+          });
+      }, err => {
+        this.loading = false;
+      });
+    }
   }
 }

@@ -27,10 +27,10 @@ export class WeatherCheckerService {
         this.filterData.forEach(data => {
           switch (data.label) {
             case 'Temperature':
-              data.converter = (x) => x - 272;
+              data.converter = x => x - 272;
               break;
             default:
-              data.converter = (x) => x;
+              data.converter = x => x;
               break;
           }
         });

@@ -4,7 +4,14 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule, MatSliderModule, MatFormFieldModule, MatProgressSpinnerModule, MatSlideToggleModule } from '@angular/material';
+import {
+  MatInputModule,
+  MatSliderModule,
+  MatFormFieldModule,
+  MatProgressSpinnerModule,
+  MatSlideToggleModule,
+  MatButtonModule,
+} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { WeatherApiService } from './weather-api.service';
@@ -23,7 +30,8 @@ import { WeatherCheckerService } from './weather-checker.service';
     MatSliderModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatButtonModule,
   ],
   providers: [WeatherApiService, WeatherCheckerService, { provide: 'LOCALSTORAGE', useFactory: getLocalStorage }],
   bootstrap: [AppComponent],
@@ -31,5 +39,5 @@ import { WeatherCheckerService } from './weather-checker.service';
 export class AppModule {}
 
 export function getLocalStorage() {
-  return (typeof window !== 'undefined') ? window.localStorage : null;
+  return typeof window !== 'undefined' ? window.localStorage : null;
 }
