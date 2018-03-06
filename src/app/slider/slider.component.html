@@ -1,4 +1,4 @@
-<div class="slider-container" *ngIf="filterData.checked">
+<div class="slider-container" *ngIf="filterData.checked" [@fadeInOut]>
   <div class="slider-title">{{ filterData.label }}: {{filterData.value}}{{filterData.format}}</div>
   <mat-slider class="slider" thumbLabel min="{{filterData.min}}" max="{{filterData.max}}" step="1"
     [(ngModel)]="filterData.value" (change)="valueChange(filterData.label, filterData.value)">
