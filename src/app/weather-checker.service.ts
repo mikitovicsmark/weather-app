@@ -63,7 +63,6 @@ export class WeatherCheckerService {
   }
 
   toggleFilter(index) {
-    console.log(index);
     this.filterData[index].checked = !this.filterData[index].checked;
     this.saveFilterData();
   }
