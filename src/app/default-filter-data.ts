@@ -7,7 +7,7 @@ export const defaultFilterData = [
     min: -15,
     max: 40,
     tolerance: 5,
-    checked: false,
+    checked: true,
     converter: x => x - 272,
   },
   {
@@ -18,7 +18,7 @@ export const defaultFilterData = [
     min: 0,
     max: 100,
     tolerance: 5,
-    checked: false,
+    checked: true,
     converter: x => x,
   },
   {
@@ -29,7 +29,7 @@ export const defaultFilterData = [
     min: 0,
     max: 100,
     tolerance: 5,
-    checked: false,
+    checked: true,
     converter: x => x,
   },
   {
@@ -40,7 +40,7 @@ export const defaultFilterData = [
     min: 0,
     max: 100,
     tolerance: 5,
-    checked: false,
+    checked: true,
     converter: x => x,
   },
 ];
