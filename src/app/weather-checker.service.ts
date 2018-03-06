@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { FilterData } from './models/filter-data';
 import { WeatherApiService } from './weather-api.service';
 import { Observable } from 'rxjs/Observable';
@@ -6,48 +7,39 @@ import 'rxjs/add/observable/of';
 import * as _ from 'lodash';
 import { Subject } from 'rxjs/Subject';
 
+import { defaultFilterData } from './default-filter-data';
+
 @Injectable()
 export class WeatherCheckerService {
   private filterData: FilterData[];
   private cityData: Object;
   private isNiceWeather: Subject<boolean> = new Subject();
-  constructor(private apiService: WeatherApiService) {
-    this.filterData = [
-      {
-        label: 'Temperature',
-        path: 'main.temp',
-        value: 20,
-        format: '°C',
-        min: -15,
-        max: 40,
-        tolerance: 5,
-        checked: false,
-        converter: x => x - 272,
-      },
-      {
-        label: 'Humidity',
-        path: 'main.humidity',
-        value: 25,
-        format: '%',
-        min: 0,
-        max: 100,
-        tolerance: 5,
-        checked: false,
-        converter: x => x,
-      },
-      {
-        label: 'Cloudiness',
-        path: 'clouds.all',
-        value: 0,
-        format: '%',
-        min: 0,
-        max: 100,
-        tolerance: 5,
-        checked: false,
-        converter: x => x,
-      },
-      { label: 'Rain', path: 'rain.3h', value: 15, format: 'mm', min: 0, max: 100, tolerance: 5, checked: false, converter: x => x },
-    ];
+
+  constructor(
+    private apiService: WeatherApiService,
+    @Inject(PLATFORM_ID) private platformId: any,
+    @Inject('LOCALSTORAGE') private localStorage: any,
+  ) {
+    if (isPlatformBrowser(this.platformId)) {
+      const storedFilterData = JSON.parse(this.localStorage.getItem('waFilterData'));
+      if (storedFilterData) {
+        this.filterData = storedFilterData;
+        this.filterData.forEach(data => {
+          switch (data.label) {
+            case 'Temperature':
+              data.converter = (x) => x - 272;
+              break;
+            default:
+              data.converter = (x) => x;
+              break;
+          }
+        });
+      } else {
+        this.filterData = defaultFilterData;
+      }
+    } else {
+      this.filterData = defaultFilterData;
+    }
     this.apiService.getCityData('London').subscribe(data => {
       this.cityData = data;
     });
@@ -71,17 +63,23 @@ export class WeatherCheckerService {
   }
 
   toggleFilter(index) {
+    console.log(index);
     this.filterData[index].checked = !this.filterData[index].checked;
-    this.checkWeather();
+    this.saveFilterData();
   }
 
   setFilterValue(label, value) {
-    const filterData = _.find(this.filterData, (filter) => filter.label === label);
+    const filterData = _.find(this.filterData, filter => filter.label === label);
     filterData.value = value;
-    this.checkWeather();
+    this.saveFilterData();
   }
 
   weatherStatus() {
     return this.isNiceWeather;
+  }
+
+  saveFilterData() {
+    this.localStorage.setItem('waFilterData', JSON.stringify(this.filterData));
+    this.checkWeather();
   }
 }

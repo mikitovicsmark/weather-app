@@ -25,7 +25,11 @@ import { WeatherCheckerService } from './weather-checker.service';
     MatProgressSpinnerModule,
     MatSlideToggleModule
   ],
-  providers: [WeatherApiService, WeatherCheckerService],
+  providers: [WeatherApiService, WeatherCheckerService, { provide: 'LOCALSTORAGE', useFactory: getLocalStorage }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
+export function getLocalStorage() {
+  return (typeof window !== 'undefined') ? window.localStorage : null;
+}
