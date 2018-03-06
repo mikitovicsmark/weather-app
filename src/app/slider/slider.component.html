@@ -4,6 +4,6 @@
     [(ngModel)]="filterData.value" (change)="valueChange(filterData.label, filterData.value)">
   </mat-slider>
   <mat-form-field class="slider-tolerance">
-    <input type="number" min="0" matInput placeholder="Tolerance" value="{{filterData.tolerance}}">
+    <input type="number" min="0" matInput placeholder="Tolerance" [(ngModel)]="filterData.tolerance" (change)="toleranceChange(filterData.label, filterData.tolerance)">
   </mat-form-field>
 </div>

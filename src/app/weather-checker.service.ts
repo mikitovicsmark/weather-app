@@ -73,6 +73,12 @@ export class WeatherCheckerService {
     this.saveFilterData();
   }
 
+  setFilterTolerance(label, tolerance) {
+    const filterData = _.find(this.filterData, filter => filter.label === label);
+    filterData.tolerance = tolerance;
+    this.saveFilterData();
+  }
+
   weatherStatus() {
     return this.isNiceWeather;
   }

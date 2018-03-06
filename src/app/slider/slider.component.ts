@@ -14,4 +14,8 @@ export class SliderComponent {
     this.checkerService.setFilterValue(label, value);
   }
 
+  toleranceChange(label, tolerance) {
+    this.checkerService.setFilterTolerance(label, tolerance);
+  }
+
 }
