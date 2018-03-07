@@ -1,6 +1,8 @@
+import { FilterType } from './enums/filters';
+
 export const defaultFilterData = [
   {
-    label: 'Temperature',
+    label: FilterType.Temperature,
     path: 'main.temp',
     value: 20,
     format: '°C',
@@ -11,7 +13,7 @@ export const defaultFilterData = [
     converter: x => x - 272,
   },
   {
-    label: 'Humidity',
+    label: FilterType.Humidity,
     path: 'main.humidity',
     value: 25,
     format: '%',
@@ -22,7 +24,7 @@ export const defaultFilterData = [
     converter: x => x,
   },
   {
-    label: 'Cloudiness',
+    label: FilterType.Clouds,
     path: 'clouds.all',
     value: 0,
     format: '%',
@@ -33,7 +35,7 @@ export const defaultFilterData = [
     converter: x => x,
   },
   {
-    label: 'Rain',
+    label: FilterType.Rain,
     path: 'rain.3h',
     value: 15,
     format: 'mm',

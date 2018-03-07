@@ -8,6 +8,7 @@ import * as _ from 'lodash';
 import { Subject } from 'rxjs/Subject';
 
 import { defaultFilterData } from './default-filter-data';
+import { FilterType } from './enums/filters';
 
 @Injectable()
 export class WeatherCheckerService {
@@ -26,7 +27,7 @@ export class WeatherCheckerService {
         this.filterData = storedFilterData;
         this.filterData.forEach(data => {
           switch (data.label) {
-            case 'Temperature':
+            case FilterType.Temperature:
               data.converter = x => x - 272;
               break;
             default:
@@ -40,13 +41,14 @@ export class WeatherCheckerService {
     } else {
       this.filterData = defaultFilterData;
     }
-    this.apiService.getCityData('London').subscribe(data => {
-      this.cityData = data;
-    });
   }
 
   getFilters() {
     return this.filterData;
+  }
+
+  setCityData(cityData) {
+    this.cityData = cityData;
   }
 
   checkWeather() {

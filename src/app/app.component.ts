@@ -45,6 +45,7 @@ export class AppComponent {
       this.apiSubscription = this.apiService.getCityData(location).subscribe(data => {
         this.iconSrc = `http://openweathermap.org/img/w/${data['weather'][0].icon}.png`;
         this.cityData = data;
+        this.checkerService.setCityData(data);
         this.checkerService.checkWeather();
       });
     });
