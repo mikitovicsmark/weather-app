@@ -66,6 +66,7 @@ export class AppComponent {
             .subscribe(data => {
               this.iconSrc = `http://openweathermap.org/img/w/${data['weather'][0].icon}.png`;
               this.cityData = data;
+              this.checkerService.setCityData(data);
               this.cityLocation = data['name'];
               this.localStorage.setItem('waLocation', this.cityLocation);
               this.loading = false;
