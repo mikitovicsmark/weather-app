@@ -21,7 +21,7 @@ import { Subject } from 'rxjs/Subject';
 import { fakeCityData } from './fake-city-data';
 import { By } from '@angular/platform-browser';
 import { Observable } from 'rxjs/Observable';
-fdescribe('AppComponent', () => {
+describe('AppComponent', () => {
   const localstorage = [];
   const localstorageStub = {
     aaa: (x) => x,
